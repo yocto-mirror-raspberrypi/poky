@@ -121,7 +121,7 @@ Index: git/pseudo.c
  	pseudo_debug_flags_finalize();
  	/* Options are processed, preserve them... */
  	pseudo_set_value("PSEUDO_OPTS", opts);
-@@ -420,6 +429,71 @@ main(int argc, char *argv[]) {
+@@ -420,6 +429,74 @@ main(int argc, char *argv[]) {
  	return pseudo_server_start(opt_d);
  }
  
@@ -145,6 +145,9 @@ Index: git/pseudo.c
 +			m ? (int) m->pathlen : -1,
 +			m ? m->path : "<n/a>");
 +		if (m->pathlen > 0) {
++			if (!strcmp(m->path, "NAMELESS FILE")) {
++				continue;
++			}
 +			int fixup_needed = 0;
 +			pseudo_debug(PDBGF_DB, "Checking <%s>\n", m->path);
 +			if (lstat(m->path, &buf)) {
@@ -193,7 +196,7 @@ Index: git/pseudo.c
  /* 
   * actually process operations.
   * This first evaluates the message, figures out what's in the DB, does some
-@@ -1050,6 +1124,10 @@ pseudo_server_response(pseudo_msg_t *msg
+@@ -1050,6 +1127,10 @@ pseudo_server_response(pseudo_msg_t *msg
  			pdb_log_msg(SEVERITY_INFO, msg, program, tag, NULL);
  		return 0;
  		break;
