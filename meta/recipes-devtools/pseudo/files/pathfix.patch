@@ -1,0 +1,18 @@
+Index: git/pseudo_client.c
+===================================================================
+--- git.orig/pseudo_client.c
++++ git/pseudo_client.c
+@@ -1549,8 +1549,12 @@ base_path(int dirfd, const char *path, i
+ 
+ 	if (!path)
+ 		return NULL;
+-	if (!*path)
++
++	if (!*path) {
++		if (dirfd != -1 && dirfd != AT_FDCWD)
++			return fd_path(dirfd);
+ 		return "";
++	}
+ 
+ 	if (path[0] != '/') {
+ 		if (dirfd != -1 && dirfd != AT_FDCWD) {
