@@ -43,7 +43,7 @@ Index: git/pseudo_client.c
  #endif
  		if (result) {
  			pseudo_debug(PDBGF_OP, "(%d) %s", getpid(), pseudo_res_name(result->result));
-+			if (0 && result->result == RESULT_ABORT) {
++			if (result->result == RESULT_ABORT) {
 +				pseudo_diag("abort()ing by server request");
 +				abort();
 +			}
